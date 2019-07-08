@@ -50,3 +50,28 @@ func TestPrefixError(t *testing.T) {
 	assert.Empty(t, id4, "ID should be empty as prefix incorrect.")
 
 }
+
+func TestStringLengthBoundaries(t *testing.T) {
+	//A string cant be less than 1 in length, or greater than 30 lets test lengths 1, less than 1 and also 30 and above.
+	//1 and 30 should work, they are the end of the boundary, the rest should not, an error should be generated.
+
+	//Length 1.
+	_, err1 := GenerateID(1, "tst")
+	assert.Nil(t, err1, "Error generated when it should not")
+
+	//Length 0, error case
+	_, err2 := GenerateID(0, "tst")
+	assert.NotNil(t, err2, "Error NOT generated when it should")
+
+	//Megative number test
+	_, err3 := GenerateID(-5, "tst")
+	assert.NotNil(t, err3, "Error NOT generated when it should")
+
+	//Length 30
+	_, err4 := GenerateID(30, "tst")
+	assert.Nil(t, err4, "Error generated when it should not")
+
+	//Length 31, error case
+	_, err5 := GenerateID(31, "tst")
+	assert.NotNil(t, err5, "Error NOT generated when it should")
+}

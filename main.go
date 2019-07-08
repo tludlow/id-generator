@@ -1,13 +1,8 @@
 package main
 
-import (
-	"fmt"
-	"id-generator/generator"
-)
+import "id-generator/comms"
 
 func main() {
-
-	// Example: this will give us a 44 byte, base64 encoded output
-	token, _ := generator.GenerateID(24, "usr")
-	fmt.Print(token)
+	//Start our HTTP router.
+	comms.CreateRouter()
 }
